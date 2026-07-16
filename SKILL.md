@@ -56,8 +56,8 @@ have (use them, still find more), a **screenshot** of a listing or business card
 (read every fact off it), or a **vibe / special ask** ("dark and premium," "5
 locations with subdomains," "needs a cart and checkout," "make the front look like
 this image"). If the name is ambiguous and there's no location, ask once for the
-city/state, then proceed. Otherwise don't interrogate them — the whole value is that
-they type a little and you do the rest.
+city/state, then proceed. Beyond the single quick preference intake in Step 3, don't
+interrogate them — the whole value is that they type a little and you do the rest.
 
 ## Step 1 — Research and pull the REAL specifics
 
@@ -110,7 +110,48 @@ The playbook sets the mood, palette direction, primary/secondary CTAs, the signa
 sections beyond the standard spine, the animation flavor, and the safety notes. Blend
 playbooks when a business straddles two (groomer + retail, dealer + repair shop).
 
-## Step 3 — Write the copy like a human, not a template
+## Step 3 — Ask a few quick preference questions (intake)
+
+After you've researched the business and know what actually exists (did you find a
+real logo? real photos?), ask the user a short, **batched** set of preference
+questions **before** writing the prompt — so each site feels made-to-order, not
+stamped out. Keep it to **one round of up to four tappable questions**, each with a
+recommended default, so they can answer in a few clicks. This is the *only* interview
+step — don't drip more questions later, and never block the final output on it.
+
+Always ask these three (the user specifically wants them), then add one more that
+fits the business:
+
+1. **Images** — how to handle photos:
+   - Real photos where available, labeled placeholders for gaps *(recommended)*
+   - Labeled placeholders only (easy to swap in later)
+   - Add tasteful stock photos as fallback
+2. **Logo** — adapt the options to what you found:
+   - If a real logo exists: use their real logo *(recommended)* · have the builder
+     design a clean logo + wordmark · simple text wordmark for now
+   - If no logo found: have the builder design a clean logo + wordmark *(recommended)*
+     · I'll provide the logo · simple text wordmark for now
+3. **Loading screen** — custom animated loading screen *(recommended)* · no, load
+   straight into the site
+4. **One more, whichever fits best** — usually **Look & feel**: match their brand/logo
+   colors *(recommended)* · dark & premium · light & clean · you pick for the industry.
+   (Swap in **Primary action** — book / call / order / request a quote / buy — instead
+   if the strongest CTA is genuinely unclear for this business.)
+
+Adapt every option to what you actually found (don't offer "use their real logo" if
+there isn't one). **Skip any question the user already answered** in their request
+(they said "make it dark" → don't ask look & feel; they gave a booking link → the CTA
+is booking). If the user says "just do it," "your call," or clearly wants no
+questions, **skip the intake entirely and use the recommended defaults.** Other
+choices (site scope, animation level, which builder they'll paste into) default
+sensibly from the playbook — only surface them if the user brings them up.
+
+Thread the answers into the prompt: images → the PHOTO/SCRAPING + placeholder
+instructions; logo → a header/branding note (use the real logo, "design a clean logo
++ wordmark," or a text wordmark); loading screen → include or omit the CUSTOM LOADING
+SCREEN section; look & feel → the palette and VISUAL STYLE direction.
+
+## Step 4 — Write the copy like a human, not a template
 
 This is what the user is hiring you for. Read `references/human-copy.md` and apply it
 throughout: lead with real specifics, match the brand's register, and avoid the AI
@@ -121,23 +162,29 @@ options, a real About paragraph, real service-card lines, and a real tagline —
 directive into the prompt itself** (the COPY & VOICE RULES block) so the downstream
 builder preserves the voice instead of regenerating bland text.
 
-## Step 4 — Write the intro summary paragraph
+## Step 5 — Write the intro summary paragraph
 
 Before the mega-prompt, write the positioning paragraph: lead with how to frame the
 business, weave in the real facts (naming platforms + ratings + signature items/
 phrases), and flag the top items to confirm before publishing.
 
-## Step 5 — Fill the template to full depth
+## Step 6 — Fill the template to full depth
 
 Work top to bottom through `references/prompt-template.md`, adapting sections to the
-chosen playbook and replacing every `{{PLACEHOLDER}}` with real, business-specific
-content and real written copy. Non-negotiables:
+chosen playbook **and to the Step 3 intake answers**, replacing every `{{PLACEHOLDER}}`
+with real, business-specific content and real written copy. Non-negotiables:
 - **Depth:** multiple real headline options; a written About paragraph; service/menu/
   product cards with real names, real descriptions, real prices; specific color hexes
-  tuned to the brand; named fonts; specific animation ideas; a custom loading screen.
-- **Real photos first, placeholders as fallback** — tell the builder to pull public
-  images from the listings/IG; where none are accessible, insert clearly labeled
-  `[bracketed placeholders]` + code comments marking where each real image goes.
+  tuned to the brand; named fonts; specific animation ideas; a custom loading screen
+  (unless the user opted out in the intake).
+- **Honor the intake:** handle images (real/placeholder/stock), the logo (real vs.
+  builder-designed vs. text wordmark), the loading screen (include or omit), and the
+  look & feel exactly as the user chose; if intake was skipped, use the recommended
+  defaults.
+- **Real photos first, placeholders as fallback** (per the images choice) — tell the
+  builder to pull public images from the listings/IG; where none are accessible, insert
+  clearly labeled `[bracketed placeholders]` + code comments marking where each real
+  image goes.
 - **Editable structure** (`/data/*` + `/components/*`) so the client can update
   services, photos, reviews, hours, inventory, etc.
 - **Local SEO + the right LocalBusiness/AutoDealer/Restaurant JSON-LD**, tuned to city

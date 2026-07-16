@@ -23,6 +23,11 @@ The output is always two parts:
    names and prices, palette, typography, animations, SEO, schema, and a closing
    recommendation.
 
+Before it writes, it asks a few quick tappable questions — photos (real vs.
+placeholders vs. stock), logo (use theirs vs. design a clean one), loading screen
+(yes/no), and look & feel — so each site is made-to-order. Prefer to skip it? Say
+"just do it" and it uses smart defaults.
+
 ## Why it's different
 
 Most AI-built sites read the same: *"Welcome to our business, where quality meets
