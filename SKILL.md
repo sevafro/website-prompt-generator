@@ -1,0 +1,169 @@
+---
+name: website-prompt-generator
+description: >-
+  Generate a long, hyper-specific, ready-to-paste website build prompt for a
+  business from just its name and location. Researches the real business (site,
+  Google, Instagram, Facebook, Yelp, booking links, BBB, directories, state
+  registry), pulls REAL specifics (services/menu/prices, brand phrases, ratings,
+  hours, photos), and writes a section-by-section prompt in the user's house style:
+  an intro summary paragraph plus a "You are an expert web designer..." mega-brief
+  with real, human, non-generic copy. ALWAYS use when the user gives a business name
+  + location and wants a website prompt — e.g. "make a website prompt for X", "do
+  another website for this business", "here's their Instagram/Google, make me a
+  prompt", or pastes a business's listings and asks for a site. Handles barbers,
+  salons, restaurants, groomers, home & trade services, auto, e-commerce,
+  multi-location, and wellness businesses.
+---
+
+# Website Prompt Generator
+
+## What this produces
+
+The user runs a prompt shop: they take a business, research it, and hand a large,
+meticulously detailed prompt to an AI website builder (Claude, v0, Lovable, etc.)
+that builds the whole site. Your job is to reproduce that deliverable from as little
+as **a business name + a location** — and to do it better than a generic template,
+because the user's core frustration is sites that "look like every other AI website."
+
+Every output has **two parts, in this order**:
+
+1. **A short intro summary paragraph** — how the business should be positioned, the
+   concrete facts you found (ratings + review counts per platform, phone, address,
+   hours, signature services/menu items, brand phrases), and the top things to verify
+   before publishing. This is the opener the reference chats always lead with.
+
+2. **The full website build prompt** — the long, structured brief starting with
+   `You are an expert web designer, ...` and running through the entire template,
+   with **real, specific, human copy written in** (headline options, an About
+   paragraph, service/menu cards with real names and prices, taglines, CTAs), a
+   verbatim voice/anti-generic directive, editable structure, SEO/schema, and a
+   closing recommendation.
+
+These prompts are **long and hyper-specific** — roughly 500-1,500+ lines depending
+on the business. Depth is the point. Never emit a skeletal one-line-per-section
+outline; every section gets real options and real copy. Read all four reference
+files before writing:
+- `references/prompt-template.md` — the section-by-section master template.
+- `references/vertical-playbooks.md` — per-industry mood, CTA, sections, safety.
+- `references/human-copy.md` — how to write text that sounds like a real brand.
+- `references/example-worked.md` — full worked examples (a service-tier and a
+  premium-tier) to match for depth, tone, and formatting.
+
+## Inputs the user gives you
+
+Usually just a **business name + location**. Sometimes also: **links** they already
+have (use them, still find more), a **screenshot** of a listing or business card
+(read every fact off it), or a **vibe / special ask** ("dark and premium," "5
+locations with subdomains," "needs a cart and checkout," "make the front look like
+this image"). If the name is ambiguous and there's no location, ask once for the
+city/state, then proceed. Otherwise don't interrogate them — the whole value is that
+they type a little and you do the rest.
+
+## Step 1 — Research and pull the REAL specifics
+
+Use web search + page fetches to build the business's real footprint. Search
+`"<name>" <city> <state>`, `<name> instagram`, `<name> yelp`, `<name> menu`,
+`<name> booking`, `<name> reviews`, and the name on specific platforms.
+
+**Find the links that actually exist** (aim for a handful up to ~10): the business's
+**own website**, **Google Business**, **Instagram**, **Facebook**, **Yelp**, any
+**booking/ordering link** (Square, theCut, Booksy, Toast, SpotOn, DoorDash), and —
+for trust/service businesses — **BBB, Thumbtack, Angi, Nextdoor, industry
+directories, and the state business registry** (e.g. Florida Sunbiz; the equivalent
+Secretary of State elsewhere; include entity/license numbers as internal
+verification only, never as prominent public content).
+
+**Extract the specifics that make copy non-generic** (note the source of each):
+- **Real service / menu / product names and prices** — the exact ones.
+- **The brand's own phrases** from their site/IG bio/posts — their real voice.
+- **Ratings + review counts per platform** (they differ; list each) and **review
+  themes/quotes** in the customers' actual words.
+- Phone, email, address, hours, owner/rep name, years in business, neighborhood/
+  landmark, walk-in/appointment/delivery facts, payment methods, licenses.
+
+**Safety and honesty while gathering (core to the format):**
+- Public info only. Don't bypass login walls, scrape private content, or reproduce
+  copyrighted text. Verify a provided Instagram actually matches the location before
+  relying on its photos.
+- **Never invent** data — no made-up ratings, reviews, prices, licenses, or "free
+  estimate/guaranteed approval" claims. Unconfirmed items go to placeholders + the
+  verification checklist.
+- Scraped ratings/hours go stale — frame them as "shown in the listing" working data
+  and tell the builder to re-verify on launch day.
+
+If the footprint is thin, say so plainly in the intro paragraph, lean on labeled
+placeholders, and still write strong copy from whatever real detail exists.
+
+## Step 2 — Classify: tier + vertical playbook
+
+Open `references/vertical-playbooks.md` and pick the business's playbook (barber/
+salon, restaurant, pet grooming, home & trade, auto, e-commerce/wholesale, multi-
+location, wellness/boutique) and its **tier**:
+- **Premium / experience tier** (barbers, salons, restaurants, detailing, boutique
+  wellness, luxury e-comm): dark or richly styled, animation-forward, booking/order-
+  driven, brand-voice-heavy. Lighter on verification scaffolding.
+- **Trust / service tier** (handyman, trades, lawn, pressure washing, auto repair,
+  pet care w/ health & safety): verification-first, licensed-trade cautions, full
+  checklist + "do not invent" blocks, estimate-driven.
+
+The playbook sets the mood, palette direction, primary/secondary CTAs, the signature
+sections beyond the standard spine, the animation flavor, and the safety notes. Blend
+playbooks when a business straddles two (groomer + retail, dealer + repair shop).
+
+## Step 3 — Write the copy like a human, not a template
+
+This is what the user is hiring you for. Read `references/human-copy.md` and apply it
+throughout: lead with real specifics, match the brand's register, and avoid the AI
+tells (no "Welcome to," "nestled in the heart of," "we pride ourselves," "top-notch,"
+"one-stop shop," empty mission blocks, or fabricated stats). Write real headline
+options, a real About paragraph, real service-card lines, and a real tagline — at the
+"specific and human" level, not the generic level. And **bake an anti-generic voice
+directive into the prompt itself** (the COPY & VOICE RULES block) so the downstream
+builder preserves the voice instead of regenerating bland text.
+
+## Step 4 — Write the intro summary paragraph
+
+Before the mega-prompt, write the positioning paragraph: lead with how to frame the
+business, weave in the real facts (naming platforms + ratings + signature items/
+phrases), and flag the top items to confirm before publishing.
+
+## Step 5 — Fill the template to full depth
+
+Work top to bottom through `references/prompt-template.md`, adapting sections to the
+chosen playbook and replacing every `{{PLACEHOLDER}}` with real, business-specific
+content and real written copy. Non-negotiables:
+- **Depth:** multiple real headline options; a written About paragraph; service/menu/
+  product cards with real names, real descriptions, real prices; specific color hexes
+  tuned to the brand; named fonts; specific animation ideas; a custom loading screen.
+- **Real photos first, placeholders as fallback** — tell the builder to pull public
+  images from the listings/IG; where none are accessible, insert clearly labeled
+  `[bracketed placeholders]` + code comments marking where each real image goes.
+- **Editable structure** (`/data/*` + `/components/*`) so the client can update
+  services, photos, reviews, hours, inventory, etc.
+- **Local SEO + the right LocalBusiness/AutoDealer/Restaurant JSON-LD**, tuned to city
+  and services; never fabricate AggregateRating or reviews.
+- **Wire real booking/ordering/phone links** to every relevant CTA.
+- For the **trust tier**, include the full verification checklist, "do not invent"
+  list, and licensed-trade disclaimer. For the **premium tier**, keep those light but
+  still never invent — and always include the anti-generic COPY & VOICE RULES.
+
+## Variants
+
+- **Multi-location (subdomains).** Search each location's *separate* Google/Yelp/
+  Facebook listings; specify a parent brand site + one sub-site per location with
+  shared components and per-location data files (address, hours, reviews, map, menu/
+  inventory, schema).
+- **E-commerce.** Add product catalog, product detail pages, cart, checkout, order
+  confirmation, and an order-tracking page with a tracking-number field; editable
+  product data; payment integration as connect-your-own-credentials (never hardcode
+  secrets). If they attach a reference image, describe the look to match it closely.
+- **Screenshot / reference-image input.** Extract every visible fact and cite it as
+  "shown in the supplied screenshot"; match an attached design's palette/layout/mood;
+  still search for more links and data.
+
+## Output format
+
+Deliver the intro paragraph, then the full prompt, as one clean copy-paste block for
+the user's builder. Don't wrap it in commentary or ask follow-ups mid-output. After
+it, add a brief note (1-2 lines) on the single most important thing to verify and the
+strongest angle — matching the closing-recommendation style in the examples.
