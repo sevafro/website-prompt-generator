@@ -42,6 +42,65 @@ It also stays **verification-first**: it never invents ratings, reviews, license
 prices, or guarantees — anything unconfirmed becomes a labeled placeholder plus a
 "verify before launch" note.
 
+## Sample output
+
+Here's a trimmed example so you can see the voice before installing. The real output
+is much longer (every section written out); this shows the shape and the copy quality.
+
+**You type:**
+
+```
+make a website prompt for Downtown Barbers, Pittsburgh PA
+```
+
+<details>
+<summary><strong>Part 1 — Summary paragraph</strong> (click to expand)</summary>
+
+> Downtown Barbers should be positioned as a sharp, downtown-Pittsburgh barbershop with
+> real local personality — third floor over Market Square, a 5.0 Google rating (8
+> reviews), and booking through theCut. Reviews carry the voice to lean into ("one of
+> the best cuts of my life," "great vibe and energy," a shout-out to barber Jordan), so
+> the site should feel like a real shop people are loyal to, not a generic grooming
+> template. Confirm the correct Instagram before pulling photos, and verify hours,
+> walk-in policy, and the full service menu/pricing before launch.
+
+</details>
+
+<details>
+<summary><strong>Part 2 — The website prompt</strong> (excerpt — click to expand)</summary>
+
+> You are an expert web designer and front-end developer. Build a clean, modern, dark
+> premium website for a barber shop client.
+>
+> **CLIENT:** Downtown Barbers — 433 Market Square, 3rd Floor, Pittsburgh, PA 15222 ·
+> (412) 418-6428 · 5.0 Google rating (8 reviews) · Booking: theCut · Instagram:
+> @downtownbarbers815 (verify it matches the Pittsburgh shop before pulling photos).
+>
+> **BRAND VOICE:** Confident, local, a little proud — the way a regular talks about
+> their barber. Real Pittsburgh, real Market Square. Write like a person, not a brochure.
+>
+> **HERO** — Headline options: "Fresh Cuts, Third Floor, Right on Market Square." /
+> "Sharp Cuts. Fresh Shaves. Downtown Pittsburgh." Subheadline: "Precision cuts, clean
+> lineups, and fresh shaves in the middle of Market Square — book online or just call up."
+> Primary CTA "Book Appointment" (theCut); secondary "Call the Shop." Badges: "5.0 on
+> Google," "433 Market Square • 3rd Floor," "Good for kids."
+>
+> **ABOUT** (written, in-voice, no filler): "Third floor over Market Square, Downtown
+> Barbers is the kind of shop you end up sending your friends to. Clean fades, sharp
+> lineups, fresh shaves, and a chair that's easy to sit in for a while — good cut, good
+> energy, no rush."
+>
+> *(…full sections for Services, Gallery, Why-Choose-Us, Reviews, Booking, Location,
+> Footer, plus palette, typography, animations, SEO, and schema…)*
+>
+> **COPY & VOICE RULES:** Write like a proud regular describing their barber —
+> specific, local, confident. Use the real details (Market Square, 3rd floor, 5.0, real
+> service names). Do NOT write "Welcome to," "nestled in the heart of," "we pride
+> ourselves," "top-notch," or empty mission blocks. One good specific line beats three
+> adjectives.
+
+</details>
+
 ## What it handles
 
 Two tiers, several vertical "playbooks":
