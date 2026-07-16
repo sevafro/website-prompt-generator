@@ -39,9 +39,19 @@ Every output has **two parts, in this order**:
    verbatim voice/anti-generic directive, editable structure, SEO/schema, and a
    closing recommendation.
 
-These prompts are **long and hyper-specific** — roughly 500-1,500+ lines depending
-on the business. Depth is the point. Never emit a skeletal one-line-per-section
-outline; every section gets real options and real copy. Read all four reference
+These prompts are **specific and detailed — but length must be earned by real
+specifics, not padding.** Depth comes from verified facts and real written copy, never
+from repetition or filler. Two consequences:
+- **Scale length to what you actually verified.** A business with a rich footprint
+  earns a long brief; a thin one gets a shorter, tighter brief plus a clear list of
+  what the client must supply. Never pad to hit a word count.
+- **Front-load the load-bearing parts and restate the critical ones at the end.** Long
+  briefs lose the middle — so the brand, the verified facts, the DO-NOT-PUBLISH
+  warnings, the voice rules, and the primary CTA belong near the top (and the key ones
+  again at the bottom), never buried only in the middle.
+Never emit a skeletal one-line-per-section outline either — every section that stays
+gets real content. If the user asks for a tight/condensed version, give a lean,
+strongly-structured brief rather than the full-length one. Read all four reference
 files before writing:
 - `references/prompt-template.md` — the section-by-section master template.
 - `references/vertical-playbooks.md` — per-industry mood, CTA, sections, safety.
@@ -85,20 +95,38 @@ verification only, never as prominent public content).
 - Public info only. Don't bypass login walls, scrape private content, or reproduce
   copyrighted text. Verify a provided Instagram actually matches the location before
   relying on its photos.
-- **Never invent** data — no made-up ratings, reviews, prices, licenses, or "free
-  estimate/guaranteed approval" claims. Unconfirmed items go to placeholders + the
-  verification checklist.
+- **Fail loud; never fabricate or soften.** Any hard fact — a price, rating, review
+  count, hours, phone, address, license — that you did not verify from a real source
+  must NOT appear as a value, not even a plausible-looking one. **A wrong price on a
+  live site is worse than a missing one.** Instead of a soft/guessed value, emit an
+  unmissable marker (e.g. `>>> PRICE UNVERIFIED — CONFIRM BEFORE PUBLISHING <<<`) and
+  add the item to the DO-NOT-PUBLISH block that sits at the top of the prompt (Step 6).
+  Never guess a number to fill a gap.
 - Scraped ratings/hours go stale — frame them as "shown in the listing" working data
   and tell the builder to re-verify on launch day.
 
-If the footprint is thin, say so plainly in the intro paragraph, lean on labeled
-placeholders, and still write strong copy from whatever real detail exists.
+**Thin or no web footprint** (a common case — brand-new or barely-listed businesses):
+say so plainly in the intro paragraph, and do NOT fabricate facts or pad the brief to
+look complete. Produce a shorter, structure-forward brief — real copy only where you
+have real detail, a prominent "WHAT THE CLIENT MUST SUPPLY" list (logo, photos, real
+prices, hours, phone), and the DO-NOT-PUBLISH block covering everything unverified. A
+short honest brief beats a long one built on guesses.
 
 ## Step 2 — Classify: tier + vertical playbook
 
-Open `references/vertical-playbooks.md` and pick the business's playbook (barber/
-salon, restaurant, pet grooming, home & trade, auto, e-commerce/wholesale, multi-
-location, wellness/boutique) and its **tier**:
+**Classify from the business's own language, not its name.** The name + city is only a
+weak prior — a "med spa," "studio," "wellness center," or "detailing" outfit can be
+premium OR trust-tier depending entirely on how the owner runs it, so guessing from
+the name is a coin flip on anything ambiguous. You already pulled their site, IG bio,
+and reviews in Step 1 — so read the register from *their words*: how they describe
+themselves, their price points, their service names, their tone, the photos they post.
+That's a much stronger signal and it fails gracefully. Only fall back to the
+name/vertical prior when you genuinely found little of their own language (thin
+footprint) — and when you do, say so and lean conservative.
+
+With the register in hand, open `references/vertical-playbooks.md` and pick the
+business's playbook (barber/salon, restaurant, pet grooming, home & trade, auto,
+e-commerce/wholesale, multi-location, wellness/boutique) and its **tier**:
 - **Premium / experience tier** (barbers, salons, restaurants, detailing, boutique
   wellness, luxury e-comm): dark or richly styled, animation-forward, booking/order-
   driven, brand-voice-heavy. Lighter on verification scaffolding.
@@ -177,6 +205,13 @@ with real, business-specific content and real written copy. Non-negotiables:
   product cards with real names, real descriptions, real prices; specific color hexes
   tuned to the brand; named fonts; specific animation ideas; a custom loading screen
   (unless the user opted out in the intake).
+- **Fail loud on unverified facts (top priority).** Open the prompt — right after the
+  CLIENT/business-info block, near the very top — with a prominent
+  `>>> DO NOT PUBLISH UNTIL VERIFIED <<<` block that lists every unverified hard fact
+  (prices, hours, rating/review counts, phone, address, license). Inline, never write a
+  soft or guessed value; use a loud marker instead. The main failure mode is a
+  placeholder getting skimmed past inside a long brief and shipped live — surfacing
+  every gap at the top, not in a checklist at the bottom, is what prevents that.
 - **Honor the intake:** handle images (real/placeholder/stock), the logo (real vs.
   builder-designed vs. text wordmark), the loading screen (include or omit), and the
   look & feel exactly as the user chose; if intake was skipped, use the recommended

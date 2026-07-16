@@ -43,9 +43,15 @@ professionalism."* This skill is built to avoid exactly that. It carries a
 - bakes a voice directive into the generated prompt so the downstream builder keeps
   the voice instead of regenerating bland text.
 
-It also stays **verification-first**: it never invents ratings, reviews, licenses,
-prices, or guarantees — anything unconfirmed becomes a labeled placeholder plus a
-"verify before launch" note.
+It also **fails loud on unverified data**: it never invents ratings, reviews,
+licenses, prices, or guarantees, and it won't emit a soft/guessed value that could get
+skimmed past and shipped live. Anything it couldn't confirm is surfaced in a
+`>>> DO NOT PUBLISH UNTIL VERIFIED <<<` block at the **top** of the prompt — because a
+wrong price on a live site is worse than a missing one.
+
+It also classifies the design tier and vertical from the **business's own language**
+(their site copy, bio, price points, reviews), not just the name — so an ambiguous
+"med spa" or "studio" lands right instead of on a coin-flip.
 
 ## Sample output
 

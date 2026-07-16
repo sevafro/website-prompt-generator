@@ -4,8 +4,15 @@ Pick the playbook that fits the business, then build the prompt on the master
 template (`prompt-template.md`) using this playbook to set the **mood, palette,
 CTA, signature sections, animation flavor, data to pull, and safety notes**. Most
 businesses fit one cleanly; blend when a business straddles two (e.g. a groomer +
-retail shop, or a dealer + repair shop). Match the depth of the worked examples —
-these prompts run long and specific, not skeletal.
+retail shop, or a dealer + repair shop). Match the depth of the worked examples, but
+let real specifics — not padding — earn the length.
+
+**Choose the playbook and tier from the business's OWN language, not its name.** The
+name is a weak, often misleading prior: a "med spa," "studio," or "wellness center"
+can be premium OR trust-tier depending entirely on how the owner presents it. Read
+their site copy, IG bio, price points, and reviews and let *their* register decide.
+Only fall back to a name-based guess when the footprint is too thin to read — and then
+lean conservative and say so.
 
 Two broad tiers cut across verticals:
 - **Premium / experience tier** (barbers, salons, restaurants, detailing, boutique
