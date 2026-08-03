@@ -30,3 +30,8 @@ updated to match):
 Every other file on the live site is unchanged. Deploy = current live files
 with index.html replaced and the old assets/index-B0mm0omh.js swapped for
 assets/index-Cmob1fix.js (keep the CSS file as is).
+
+7. About-section portrait: on mobile it renders at 11rem (176px) instead of
+   filling the column, with a small caption underneath ("Seva Frolov ·
+   Founder, Nxt Level Solutions · Naples, FL"). Desktop keeps the original
+   320px portrait with no caption.
