@@ -111,8 +111,12 @@
       /* blend the video's near-black background into the page and feather the
          edges so it doesn't read as a pasted rectangle */
       mix-blend-mode: screen;
-      -webkit-mask-image: radial-gradient(ellipse 74% 70% at 50% 50%, #000 62%, transparent 94%);
-      mask-image: radial-gradient(ellipse 74% 70% at 50% 50%, #000 62%, transparent 94%);
+      /* the encode crushes the clip's background to true black and pads the frame,
+         so screen blending hides it completely; the mask is only a gentle corner
+         vignette that finishes inside the padding */
+      -webkit-mask-image: radial-gradient(ellipse 68% 64% at 50% 50%, #000 75%, transparent 98%);
+      mask-image: radial-gradient(ellipse 68% 64% at 50% 50%, #000 75%, transparent 98%);
+      transform: scale(1.18);
     }
     .hero::before {
       content: ''; position: absolute; inset: 0; pointer-events: none;
