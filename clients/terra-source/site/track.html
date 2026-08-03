@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Track a Terra Source Corp wholesale order by order number and email." />
+  <title>Track Your Order | Terra Source Corp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <style>
+    .track-card { border: 1px solid var(--line); border-radius: 12px; padding: 28px; background: var(--panel); }
+    .track-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 16px; align-items: end; }
+    @media (max-width: 760px) { .track-form { grid-template-columns: 1fr; } }
+    .hint { color: var(--muted); font-size: 12px; margin-top: 12px; }
+    .hint b { color: var(--gold-soft); font-weight: 500; }
+    .result { margin-top: 26px; border: 1px solid var(--line); border-radius: 12px; padding: 28px; }
+    .result-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; align-items: center;
+      border-bottom: 1px solid var(--line-soft); padding-bottom: 18px; margin-bottom: 22px; }
+    .status-pill { border: 1px solid var(--gold); border-radius: 999px; padding: 6px 18px;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-soft); }
+    .timeline { list-style: none; margin: 6px 0 22px; }
+    .timeline li { display: grid; grid-template-columns: 26px 1fr; gap: 14px; padding: 9px 0; font-size: 14.5px; align-items: baseline; }
+    .dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--gold); justify-self: center; }
+    .done .dot { background: linear-gradient(180deg, #ecd08b, #a37c2a); }
+    .timeline .when { color: var(--muted); font-size: 12.5px; margin-left: 8px; }
+    .ship-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+    .ship-cell { background: var(--panel2); border: 1px solid var(--line-soft); border-radius: 8px; padding: 14px 16px; }
+    .ship-cell h4 { font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .ship-cell div { font-size: 14.5px; }
+    .items li { list-style: none; padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14.5px; display: flex; justify-content: space-between; gap: 12px; }
+  </style>
+</head>
+<body>
+
+  <header class="site">
+    <div class="wrap nav">
+      <a class="brand" href="/">
+        <div class="brand-mark">TS</div>
+        <div>
+          <div class="brand-name gold-mirror serif">TERRA SOURCE CORP.</div>
+          <div class="brand-tag">Earth's Finest. Trusted Worldwide.</div>
+        </div>
+      </a>
+      <nav class="links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/track" class="active">Track Order</a>
+        <a href="/#mission">Mission</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <a class="btn btn-gold" href="mailto:sales@terrasourcecorp.com" style="padding:11px 22px;">Request Quote</a>
+    </div>
+  </header>
+
+  <div class="page-head wrap">
+    <div class="kicker">Order Status</div>
+    <h1 class="page-title gold-mirror serif">Track Your Order</h1>
+    <p class="page-sub">Enter the order number from your confirmation together with the email the order was placed under.</p>
+  </div>
+
+  <section class="block">
+    <div class="wrap" style="max-width: 860px;">
+      <div class="track-card">
+        <form class="track-form" id="form">
+          <div>
+            <label class="field-label" for="number">Order Number</label>
+            <input class="input" id="number" placeholder="TSG-10001" autocomplete="off" />
+          </div>
+          <div>
+            <label class="field-label" for="email">Order Email</label>
+            <input class="input" id="email" type="email" placeholder="you@company.com" autocomplete="email" />
+          </div>
+          <button class="btn btn-gold" id="go" type="submit">Track</button>
+        </form>
+        <div class="hint">Preview record: <b>TSG-10001 / buyer@example.com</b>. Lookups run through the secure trade-desk API.</div>
+      </div>
+
+      <div id="error" class="notice" style="display:none; margin-top: 22px;"></div>
+      <div id="result" class="result" style="display:none;"></div>
+    </div>
+  </section>
+
+  <footer class="site">
+    <div class="wrap">
+      © 2026 Terra Source Corp. All rights reserved. ·
+      <a href="/">Home</a> · <a href="/products">Catalog</a> · <a href="mailto:sales@terrasourcecorp.com">sales@terrasourcecorp.com</a>
+    </div>
+  </footer>
+
+  <script>
+    const STAGES = ['Received', 'Confirmed', 'In Preparation', 'Shipped', 'Delivered'];
+    const form = document.getElementById('form');
+    const errBox = document.getElementById('error');
+    const resBox = document.getElementById('result');
+    const btn = document.getElementById('go');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errBox.style.display = 'none'; resBox.style.display = 'none';
+      const number = document.getElementById('number').value.trim();
+      const email = document.getElementById('email').value.trim();
+      if (!number || !email) { showErr('Enter both the order number and the order email.'); return; }
+      btn.textContent = 'Looking…'; btn.disabled = true;
+      try {
+        const r = await fetch('/.netlify/functions/track', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ number, email }),
+        });
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok) { showErr(data.error || 'No order found for that number and email.'); return; }
+        render(data.order);
+      } catch {
+        showErr('Could not reach the server. Check your connection and try again.');
+      } finally {
+        btn.textContent = 'Track'; btn.disabled = false;
+      }
+    });
+
+    function showErr(msg) { errBox.textContent = msg; errBox.style.display = 'block'; }
+
+    function render(o) {
+      const stageIdx = STAGES.indexOf(o.status);
+      resBox.innerHTML =
+        '<div class="result-head">' +
+          '<div>' +
+            '<div class="kicker" style="margin-bottom:6px;">Order</div>' +
+            '<div class="serif gold-mirror" style="font-family:\'Cinzel\',serif;font-size:24px;font-weight:700;" id="r-num"></div>' +
+          '</div>' +
+          '<span class="status-pill" id="r-status"></span>' +
+        '</div>' +
+        '<ul class="timeline" id="r-timeline"></ul>' +
+        '<div class="ship-grid" id="r-ship"></div>' +
+        '<h3 class="serif gold-mirror" style="font-family:\'Cinzel\',serif;font-size:18px;font-weight:700;margin:24px 0 8px;">Items</h3>' +
+        '<ul class="items" id="r-items"></ul>';
+      document.getElementById('r-num').textContent = o.number;
+      document.getElementById('r-status').textContent = o.status;
+      const tl = document.getElementById('r-timeline');
+      STAGES.forEach((s, i) => {
+        const li = document.createElement('li');
+        if (i <= stageIdx) li.className = 'done';
+        const when = (o.timeline || {})[s];
+        li.innerHTML = '<span class="dot"></span><span></span>';
+        li.querySelector('span:last-child').textContent = s + (when ? '' : '');
+        if (when) {
+          const w = document.createElement('span'); w.className = 'when'; w.textContent = when;
+          li.querySelector('span:last-child').appendChild(w);
+        }
+        tl.appendChild(li);
+      });
+      const ship = document.getElementById('r-ship');
+      const cells = { 'Carrier': o.carrier, 'B/L Number': o.blNumber, 'Vessel ETA': o.vesselEta, 'Destination': o.destination };
+      for (const [k, v] of Object.entries(cells)) {
+        if (!v) continue;
+        const d = document.createElement('div'); d.className = 'ship-cell';
+        d.innerHTML = '<h4></h4><div></div>';
+        d.querySelector('h4').textContent = k;
+        d.querySelector('div:last-child').textContent = v;
+        ship.appendChild(d);
+      }
+      const items = document.getElementById('r-items');
+      for (const it of (o.items || [])) {
+        const li = document.createElement('li');
+        const a = document.createElement('span'); a.textContent = it.name;
+        const b = document.createElement('span'); b.style.color = 'var(--muted)'; b.textContent = it.qty;
+        li.append(a, b); items.appendChild(li);
+      }
+      resBox.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

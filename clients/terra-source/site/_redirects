@@ -1,0 +1,4 @@
+# Pretty URLs
+/products          /products.html   200
+/track             /track.html      200
+/product/*         /product.html?p=:splat  200
