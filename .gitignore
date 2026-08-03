@@ -9,3 +9,6 @@ desktop.ini
 # Python artifacts (from packaging tooling)
 __pycache__/
 *.pyc
+
+# Netlify local state
+.netlify/
