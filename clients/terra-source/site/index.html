@@ -106,7 +106,7 @@
       border-radius: 50%; display: grid; place-items: center; color: var(--gold);
     }
     .badge-item span { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #ffffff; }
-    .hero-globe img { border-radius: 8px; }
+    .hero-globe img, .hero-globe video { border-radius: 8px; width: 100%; display: block; }
     .hero::before {
       content: ''; position: absolute; inset: 0; pointer-events: none;
       background: radial-gradient(ellipse 60% 45% at 72% 40%, rgba(212,175,94,0.10), transparent 70%);
@@ -262,7 +262,13 @@
         </div>
       </div>
       <div class="hero-globe">
-        <img src="assets/img/globe.png" alt="Golden globe — Terra Source Corp global sourcing network" />
+        <video autoplay muted loop playsinline preload="metadata"
+               poster="assets/img/globe-poster.jpg"
+               aria-label="Golden globe — Terra Source Corp global sourcing network">
+          <source src="assets/img/globe-hero.mp4" type="video/mp4" />
+          <source src="assets/img/globe-hero.webm" type="video/webm" />
+          <img src="assets/img/globe-poster.jpg" alt="Golden globe — Terra Source Corp global sourcing network" />
+        </video>
       </div>
     </div>
   </section>
