@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product | Terra Source Corp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css" />
+  <style>
+    .prod-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 44px; align-items: start; padding: 56px 0 20px; }
+    @media (max-width: 900px) { .prod-grid { grid-template-columns: 1fr; } }
+    .prod-img { border-radius: 10px; border: 1px solid var(--line-soft); overflow: hidden; }
+    .prod-img img { width: 100%; object-fit: cover; }
+    .sku { font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; }
+    .prod-title { font-family: 'Cinzel', serif; font-weight: 700; font-size: clamp(26px, 3.6vw, 38px); line-height: 1.15; margin-bottom: 14px; }
+    .prod-short { color: var(--text); font-size: 16px; margin-bottom: 20px; }
+    .quote-band {
+      border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; margin: 24px 0;
+      background: var(--panel);
+    }
+    .quote-band .row { display: flex; justify-content: space-between; gap: 14px; padding: 7px 0; font-size: 14.5px; flex-wrap: wrap; }
+    .quote-band .row span:first-child { color: var(--gold); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; }
+    .breadcrumb { padding: 26px 0 0; font-size: 12.5px; letter-spacing: 1px; }
+    .breadcrumb a { color: var(--muted); text-decoration: none; text-transform: uppercase; }
+    .breadcrumb a:hover { color: var(--gold-soft); }
+    .long-desc { max-width: 74ch; color: var(--text); font-size: 15.5px; }
+    .sizes li { padding: 8px 0; border-bottom: 1px solid var(--line-soft); font-size: 14.5px; list-style: none; display: flex; gap: 10px; }
+    .sizes li::before { content: '✦'; color: var(--gold); }
+    h2.sec { font-family: 'Cinzel', serif; font-weight: 700; font-size: 21px; margin: 34px 0 16px; }
+  </style>
+</head>
+<body>
+
+  <header class="site">
+    <div class="wrap nav">
+      <a class="brand" href="/">
+        <div class="brand-mark">TS</div>
+        <div>
+          <div class="brand-name gold-mirror serif">TERRA SOURCE CORP.</div>
+          <div class="brand-tag">Earth's Finest. Trusted Worldwide.</div>
+        </div>
+      </a>
+      <nav class="links">
+        <a href="/">Home</a>
+        <a href="/products" class="active">Products</a>
+        <a href="/track">Track Order</a>
+        <a href="/#mission">Mission</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <a class="btn btn-gold" id="quote-btn-top" href="mailto:sales@terrasourcecorp.com" style="padding:11px 22px;">Request Quote</a>
+    </div>
+  </header>
+
+  <div class="wrap breadcrumb"><a href="/products">← Wholesale Catalog</a></div>
+
+  <div class="wrap" id="content"><!-- rendered by JS --></div>
+
+  <footer class="site">
+    <div class="wrap">
+      © 2026 Terra Source Corp. All rights reserved. ·
+      <a href="/">Home</a> · <a href="/products">Catalog</a> · <a href="/track">Track Order</a>
+    </div>
+  </footer>
+
+  <script src="/assets/products-data.js"></script>
+  <script>
+    const slug = new URLSearchParams(location.search).get('p') || location.pathname.split('/').filter(Boolean).pop();
+    const p = window.TSG_PRODUCTS.find(x => x.id === slug);
+    const root = document.getElementById('content');
+    if (!p) {
+      root.innerHTML = '<div class="page-head"><h1 class="page-title gold-mirror serif">Product not found</h1>' +
+        '<p class="page-sub"><a style="color:var(--gold-soft)" href="/products">Browse the wholesale catalog →</a></p></div>';
+    } else {
+      document.title = p.name + ' | Terra Source Corp';
+      const mailto = 'mailto:sales@terrasourcecorp.com?subject=' +
+        encodeURIComponent('Quote request — ' + p.name + ' (' + p.sku + ')') +
+        '&body=' + encodeURIComponent('Product: ' + p.name + '\nSKU: ' + p.sku + '\nQuantity / format: \nDestination port: \nIncoterm (FOB/CIF/DDP): \nCompany: \n');
+      document.getElementById('quote-btn-top').href = mailto;
+
+      const specRows = Object.entries({
+        'Origin': p.origin, 'Species': p.species, 'Variety': p.variety,
+        'Process': p.process, 'Grade': p.grade, 'Moisture': p.moisture,
+        ...(p.specs || {}),
+        'Packaging': p.packaging, 'MOQ': p.moq, 'Lead time': p.leadTime, 'Shelf life': p.shelfLife,
+      }).filter(([, v]) => v && v !== '—');
+
+      root.innerHTML =
+        '<div class="prod-grid">' +
+          '<div class="prod-img"><img id="pimg" src="" alt="" /></div>' +
+          '<div>' +
+            '<div class="sku" id="psku"></div>' +
+            '<h1 class="prod-title gold-mirror serif" id="pname"></h1>' +
+            '<p class="prod-short" id="pshort"></p>' +
+            '<div class="chips" id="pcerts"></div>' +
+            '<div class="quote-band">' +
+              '<div class="row"><span>Pricing</span><span>Quote-only — priced per contract, grade &amp; Incoterm</span></div>' +
+              '<div class="row"><span>MOQ</span><span id="pmoq"></span></div>' +
+              '<div class="row"><span>Lead time</span><span id="plead"></span></div>' +
+            '</div>' +
+            '<a class="btn btn-gold" id="quote-btn" href="' + mailto + '">Request Wholesale Quote</a> ' +
+            '<a class="btn btn-line" href="/track" style="margin-left:8px;">Track an Order</a>' +
+          '</div>' +
+        '</div>' +
+        '<h2 class="sec gold-mirror serif">About this program</h2>' +
+        '<p class="long-desc" id="plong"></p>' +
+        '<h2 class="sec gold-mirror serif">Specifications</h2>' +
+        '<table class="spec-table" id="pspecs"></table>' +
+        '<h2 class="sec gold-mirror serif">Formats</h2>' +
+        '<ul class="sizes" id="psizes"></ul>' +
+        '<h2 class="sec gold-mirror serif">Recommended for</h2>' +
+        '<p class="long-desc" id="prec"></p>';
+
+      document.getElementById('pimg').src = p.image.startsWith('/') ? p.image : '/' + p.image;
+      document.getElementById('pimg').alt = p.name;
+      document.getElementById('psku').textContent = p.sku + ' · ' + p.category;
+      document.getElementById('pname').textContent = p.name;
+      document.getElementById('pshort').textContent = p.shortDesc;
+      document.getElementById('pmoq').textContent = p.moq;
+      document.getElementById('plead').textContent = p.leadTime;
+      document.getElementById('plong').textContent = p.longDesc;
+      document.getElementById('prec').textContent = p.recommended;
+      const certs = document.getElementById('pcerts');
+      for (const c of (p.certs || [])) {
+        const s = document.createElement('span'); s.className = 'chip'; s.textContent = c; certs.appendChild(s);
+      }
+      const tbl = document.getElementById('pspecs');
+      for (const [k, v] of specRows) {
+        const tr = document.createElement('tr');
+        const th = document.createElement('th'); th.textContent = k;
+        const td = document.createElement('td'); td.textContent = v;
+        tr.append(th, td); tbl.appendChild(tr);
+      }
+      const sizes = document.getElementById('psizes');
+      for (const s of (p.sizeOptions || [])) {
+        const li = document.createElement('li'); li.textContent = s; sizes.appendChild(li);
+      }
+    }
+  </script>
+
+</body>
+</html>

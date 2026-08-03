@@ -106,7 +106,18 @@
       border-radius: 50%; display: grid; place-items: center; color: var(--gold);
     }
     .badge-item span { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #ffffff; }
-    .hero-globe img { border-radius: 8px; }
+    .hero-globe img, .hero-globe video {
+      width: 100%; display: block;
+      /* blend the video's near-black background into the page and feather the
+         edges so it doesn't read as a pasted rectangle */
+      mix-blend-mode: screen;
+      /* the encode crushes the clip's background to true black and pads the frame,
+         so screen blending hides it completely; the mask is only a gentle corner
+         vignette that finishes inside the padding */
+      -webkit-mask-image: radial-gradient(ellipse 68% 64% at 50% 50%, #000 75%, transparent 98%);
+      mask-image: radial-gradient(ellipse 68% 64% at 50% 50%, #000 75%, transparent 98%);
+      transform: scale(1.18);
+    }
     .hero::before {
       content: ''; position: absolute; inset: 0; pointer-events: none;
       background: radial-gradient(ellipse 60% 45% at 72% 40%, rgba(212,175,94,0.10), transparent 70%);
@@ -224,10 +235,11 @@
         </div>
       </div>
       <nav>
-        <a href="#products">Products</a>
+        <a href="/products">Products</a>
         <a href="#palm-oil">Palm Oil</a>
         <a href="#mission">Mission</a>
         <a href="#leadership">About Us</a>
+        <a href="/track">Track Order</a>
         <a href="#contact">Contact</a>
       </nav>
       <a class="btn btn-gold" href="#contact" style="padding:11px 22px;">Request Supply</a>
@@ -261,7 +273,13 @@
         </div>
       </div>
       <div class="hero-globe">
-        <img src="assets/img/globe.png" alt="Golden globe — Terra Source Corp global sourcing network" />
+        <video autoplay muted loop playsinline preload="metadata"
+               poster="assets/img/globe-poster.jpg"
+               aria-label="Golden globe — Terra Source Corp global sourcing network">
+          <source src="assets/img/globe-hero.mp4" type="video/mp4" />
+          <source src="assets/img/globe-hero.webm" type="video/webm" />
+          <img src="assets/img/globe-poster.jpg" alt="Golden globe — Terra Source Corp global sourcing network" />
+        </video>
       </div>
     </div>
   </section>
@@ -277,7 +295,7 @@
             <h3 class="gold-mirror serif">Organic Crude Red Palm Oil</h3>
             <div class="sub">Wholesale Supply</div>
             <p>Premium-quality raw crude red palm oil from Cameroon, Africa. Raw, unrefined, unfiltered — sourced sustainably and delivered globally in bulk.</p>
-            <a class="btn btn-line" href="#palm-oil">Learn More</a>
+            <a class="btn btn-line" href="/product/red-palm-oil-drums">Learn More</a>
           </div>
         </div>
         <div class="card">
@@ -286,7 +304,7 @@
             <h3 class="gold-mirror serif">Organic Coffee</h3>
             <div class="sub">Wholesale Supply</div>
             <p>Premium organic green Robusta coffee in parchment from the volcanic highlands of Mount Cameroon — raw, unroasted, ethically sourced for exceptional taste and aroma.</p>
-            <a class="btn btn-line" href="#contact">Learn More</a>
+            <a class="btn btn-line" href="/product/green-robusta">Learn More</a>
           </div>
         </div>
         <div class="card">
@@ -295,10 +313,13 @@
             <h3 class="gold-mirror serif">Cocoa Beans &amp; Cocoa Powder</h3>
             <div class="sub">Wholesale Supply</div>
             <p>Raw organic cocoa beans and pure cocoa powder — rich in flavor and perfect for global manufacturers.</p>
-            <a class="btn btn-line" href="#contact">Learn More</a>
+            <a class="btn btn-line" href="/product/cacao-beans-fermented">Learn More</a>
           </div>
         </div>
       </div>
+      <p style="text-align:center; margin-top: 36px;">
+        <a class="btn btn-gold" href="/products">View Full Catalog →</a>
+      </p>
     </div>
   </section>
 

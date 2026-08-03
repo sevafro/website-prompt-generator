@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Terra Source Corp wholesale catalog — crude red palm oil, green and roasted coffee, specialty lots, cacao beans and powder, private-label programs. All quote-only." />
+  <title>Wholesale Catalog | Terra Source Corp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+  <header class="site">
+    <div class="wrap nav">
+      <a class="brand" href="/">
+        <div class="brand-mark">TS</div>
+        <div>
+          <div class="brand-name gold-mirror serif">TERRA SOURCE CORP.</div>
+          <div class="brand-tag">Earth's Finest. Trusted Worldwide.</div>
+        </div>
+      </a>
+      <nav class="links">
+        <a href="/">Home</a>
+        <a href="/products" class="active">Products</a>
+        <a href="/track">Track Order</a>
+        <a href="/#mission">Mission</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <a class="btn btn-gold" href="mailto:sales@terrasourcecorp.com?subject=Wholesale%20quote%20request" style="padding:11px 22px;">Request Quote</a>
+    </div>
+  </header>
+
+  <div class="page-head wrap">
+    <div class="kicker">Our Wholesale Range</div>
+    <h1 class="page-title gold-mirror serif">Wholesale Catalog</h1>
+    <p class="page-sub">
+      Every program is quote-only — commodity prices move with contract, grade, and
+      Incoterm, so no list price is published. Request a quote and the trade desk
+      responds with current pricing for your volume and destination.
+    </p>
+  </div>
+
+  <section class="block">
+    <div class="wrap" id="catalog"><!-- rendered by JS --></div>
+  </section>
+
+  <footer class="site">
+    <div class="wrap">
+      © 2026 Terra Source Corp. All rights reserved. ·
+      <a href="/">Home</a> · <a href="/track">Track Order</a> · <a href="mailto:sales@terrasourcecorp.com">sales@terrasourcecorp.com</a>
+    </div>
+  </footer>
+
+  <script src="assets/products-data.js"></script>
+  <script>
+    const root = document.getElementById('catalog');
+    for (const cat of window.TSG_CATEGORIES) {
+      const items = window.TSG_PRODUCTS.filter(p => p.category === cat);
+      if (!items.length) continue;
+      const h = document.createElement('h2');
+      h.className = 'cat-title gold-mirror serif';
+      h.textContent = cat;
+      root.appendChild(h);
+      const grid = document.createElement('div');
+      grid.className = 'cards';
+      for (const p of items) {
+        const a = document.createElement('a');
+        a.className = 'card';
+        a.href = '/product/' + p.id;
+        a.innerHTML =
+          '<img class="card-img" src="' + p.image + '" alt="" loading="lazy" />' +
+          '<div class="card-body">' +
+            '<h3 class="gold-mirror serif"></h3>' +
+            '<div class="sub"></div>' +
+            '<p></p>' +
+            '<span class="cta">View details →</span>' +
+          '</div>';
+        a.querySelector('h3').textContent = p.name;
+        a.querySelector('.sub').textContent = p.origin;
+        a.querySelector('p').textContent = p.shortDesc;
+        grid.appendChild(a);
+      }
+      root.appendChild(grid);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<!--
+  Terra Source Corp — "under construction" page.
+  Single self-contained file: upload anywhere (e.g. Hostinger public_html as
+  index.html) — no other files needed.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Terra Source Corp — global wholesale supplier of finest organic commodities. Our new website is under construction." />
+  <title>Terra Source Corp | Site Under Construction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050403;
+      --gold: #d4af5e;
+      --gold-soft: #efd9a7;
+      --text: #f4f0e8;
+      --muted: #cfc8bb;
+      --line: rgba(212, 175, 94, 0.35);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif; font-weight: 300;
+      display: grid; place-items: center; padding: 32px 20px;
+      background-image:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(212, 175, 94, 0.08), transparent 70%),
+        radial-gradient(ellipse 50% 35% at 50% 105%, rgba(212, 175, 94, 0.06), transparent 70%);
+      -webkit-font-smoothing: antialiased;
+    }
+    .card { max-width: 640px; text-align: center; }
+    .brand-mark {
+      width: 64px; height: 64px; margin: 0 auto 26px;
+      border: 1px solid var(--gold); border-radius: 6px;
+      display: grid; place-items: center;
+      font-family: 'Cinzel', serif; font-weight: 700; font-size: 24px;
+      color: var(--gold); letter-spacing: 1px;
+    }
+    .gold-mirror {
+      background: linear-gradient(180deg,
+        #f7e7bb 0%, #eccf88 22%, #c89b46 42%, #8a6516 50%,
+        #e8cd85 62%, #f9edc4 78%, #b98d33 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    h1 {
+      font-family: 'Cinzel', serif; font-weight: 700;
+      font-size: clamp(30px, 6vw, 46px); line-height: 1.15; letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+    .tag {
+      font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 34px;
+    }
+    .rule {
+      width: 72px; height: 1px; margin: 0 auto 34px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .headline {
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+      font-size: clamp(20px, 3.4vw, 26px); color: #ffffff; margin-bottom: 16px;
+    }
+    p.copy { color: var(--muted); font-size: 15.5px; line-height: 1.8; max-width: 52ch; margin: 0 auto 38px; }
+    .badge {
+      display: inline-block; border: 1px solid var(--line); border-radius: 999px;
+      padding: 8px 24px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold-soft); margin-bottom: 38px;
+    }
+    .contact { font-size: 14px; color: var(--muted); }
+    .contact a { color: var(--gold-soft); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 1px; }
+    .contact a:hover { color: #fff; }
+    footer { margin-top: 46px; font-size: 11.5px; letter-spacing: 1px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand-mark">TS</div>
+    <h1 class="gold-mirror">TERRA SOURCE CORP.</h1>
+    <div class="tag">Earth's Finest. Trusted Worldwide.</div>
+    <div class="rule"></div>
+
+    <div class="badge">Site Under Construction</div>
+
+    <p class="headline">Something golden is on its way.</p>
+    <p class="copy">
+      We're building the new home of Terra Source Corp — global wholesale supply
+      of the finest organic commodities: crude red palm oil, coffee, and cacao.
+      In the meantime, our trade desk is open.
+    </p>
+
+    <div class="contact">
+      <a href="mailto:sales@terrasourcecorp.com">sales@terrasourcecorp.com</a>
+    </div>
+
+    <footer>© 2026 Terra Source Corp. All rights reserved.</footer>
+  </main>
+</body>
+</html>
