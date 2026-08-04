@@ -61,27 +61,48 @@ Keep the count at 72, or update `FRAME_COUNT` in `src/HeroCanvas.tsx`. `fps` is
 
 **Light palette, and the animation is deliberately not darkened.** The clip is
 pale pastel (mean luma 169/255). Rather than darkening it to carry white text,
-the type is deep navy and the hero uses a *white* wash — brightening, not
-darkening — that gives the copy a near-white bed while leaving the figure clean
-on the right. Measured worst-case contrast, sampling the darkest 2% of background
-behind each block with the foreground stripped out:
+the type is deep navy over a *white* wash — brightening, not darkening.
+
+**The wash is deliberately weak.** An earlier pass pushed it to 0.96 opacity,
+which scored beautifully on contrast and buried the animation it was supposed to
+be lifting — the whole point of the hero. It now tops out at 0.82 and fades to
+fully transparent by 68% across, with a `saturate(1.22) contrast(1.06)` filter on
+the canvas because the source clip is low-saturation to begin with. That is the
+real constraint here: **legibility has to come from the type, not from washing
+out the artwork.**
+
+So the hero type is navy throughout. Measured worst-case contrast against the
+current wash, sampling the darkest 2% of background behind each block with the
+foreground stripped out:
 
 | element | colour | desktop | mobile |
 |---|---|---|---|
-| h1 line 1 | navy-900 | 11.4:1 | 13.5:1 |
-| h1 line 2 | brand-700 | 4.5:1 | 5.2:1 |
-| subtitle | navy-800 | 12.2:1 | 13.4:1 |
-| stat value | navy-900 | 10.1:1 | 14.2:1 |
-| stat label | navy-600 | 4.6:1 | 6.5:1 |
+| h1 (both lines) | navy-900 | 4.1:1 | 6.8:1 |
+| subtitle | navy-800 | 7.0:1 | 5.4:1 |
+| stat value | navy-900 | 7.6:1 | 9.1:1 |
+| stat label | navy-800 | 6.8:1 | 8.1:1 |
 | CTA | white on brand-700 | 6.6:1 | 6.6:1 |
 
-All above the WCAG AA threshold (4.5:1 normal text, 3:1 large text and UI).
-**If the clip is ever swapped, re-measure these** — the scrim is tuned to this
-one. The palette itself was also tuned against measurement: the first pass used
-`brand-500` (#1CADE4) for accents and a lighter navy for secondary copy, and both
-failed (2.6:1 and 4.2:1 on white respectively). Accents are `brand-600`/`700` and
-secondary copy is `navy-400` (#4e7391) or darker for that reason — **don't
-lighten them back without re-checking.**
+All above the WCAG AA threshold (4.5:1 normal text, 3:1 large text and UI). The
+h1 at 4.1:1 is the tightest — it clears the 3:1 large-text bar with room, but it
+is the first thing to break if the wash is weakened further or the clip is
+swapped.
+
+**Colours that were tried and failed measurement — don't reintroduce them:**
+
+| tried | measured | why it failed |
+|---|---|---|
+| `brand-700` for the h1's second line | 1.6:1 | over the hot-pink brain, once the wash was weakened |
+| `navy-600` for stat labels | 3.5:1 | same |
+| `brand-500` (#1CADE4) as accent/UI colour on white | 2.6:1 | under the 3:1 floor for large text and icons |
+| the original `navy-400` (#5b7f9b) for body copy | 4.2:1 | under AA on white; token darkened to #4e7391 |
+
+The logo's sky blue (`brand-500`) is fine as a fill but must not carry text or
+icons. Blue survives on the CTA (white on `brand-700`) and the section eyebrows,
+which sit on white rather than on the animation.
+
+**If the clip is ever swapped, re-measure all of the above** — every number here
+is tuned to this specific footage.
 
 **Nav handoff.** The hero stays pinned for the whole track, so its own nav is
 visible the entire time. The hero foreground (nav + copy) fades out over the last
