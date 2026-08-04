@@ -3,13 +3,20 @@
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-  /* Brand palette, sampled from the MedTravel Experts logo */
+  /* Light, clinical palette. Deep navy carries the type; the logo's sky blue
+     is the accent; the red is kept for small emphasis only — too much of it
+     reads as an alert in a healthcare context. */
+  --color-navy-900: #072034;
+  --color-navy-800: #0a2a43;
+  --color-navy-600: #2d5877;
+  --color-navy-400: #4e7391;
+  --color-brand-700: #0a6489;
+  --color-brand-600: #0e7fb0;
   --color-brand-500: #1cade4;
-  --color-brand-600: #128fc0;
-  --color-brand-300: #6fcdf0;
-  --color-accent-500: #d31e1e;
-  --color-ink-900: #04121c;
-  --color-ink-800: #071c29;
+  --color-brand-300: #7fd3f2;
+  --color-brand-50: #eef8fd;
+  --color-accent-600: #b81a1a;
+  --color-mist: #f2f9fd;
 }
 
 html {
@@ -18,26 +25,29 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--color-ink-900);
-  color: #fff;
+  background-color: #fff;
+  color: var(--color-navy-800);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* ---------------------------------------------------------------
-   Liquid glass
-   A near-transparent luminosity-blended surface with a soft inner
-   highlight, plus a ::before ring that fakes a gradient border via
-   the mask-composite exclude trick.
+   Liquid glass, light variant.
+   Same construction as the dark original — luminosity-blended surface,
+   inner highlight, and a ::before ring faking a gradient border through
+   mask-composite — but tuned to sit on a pale background: the fill is
+   white rather than near-transparent, and the ring runs white-to-blue
+   so the edge stays visible against the video.
    --------------------------------------------------------------- */
 .liquid-glass {
-  background: rgba(255, 255, 255, 0.01);
-  background-blend-mode: luminosity;
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(14px) saturate(1.35);
+  backdrop-filter: blur(14px) saturate(1.35);
   border: none;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    0 6px 22px rgba(7, 32, 52, 0.07);
   position: relative;
   overflow: hidden;
 }
@@ -50,12 +60,12 @@ body {
   padding: 1.4px;
   background: linear-gradient(
     to bottom,
-    rgba(255, 255, 255, 0.45) 0%,
-    rgba(255, 255, 255, 0.15) 20%,
-    transparent 40%,
-    transparent 60%,
-    rgba(255, 255, 255, 0.15) 80%,
-    rgba(255, 255, 255, 0.45) 100%
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.6) 20%,
+    rgba(28, 173, 228, 0.22) 45%,
+    rgba(28, 173, 228, 0.22) 55%,
+    rgba(255, 255, 255, 0.6) 80%,
+    rgba(255, 255, 255, 0.95) 100%
   );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -68,12 +78,45 @@ body {
   pointer-events: none;
 }
 
-/* Heavier variant for the sections below the fold, where there is no
-   video behind the element to supply contrast. */
-.liquid-glass-solid {
-  background: rgba(255, 255, 255, 0.04);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+/* Denser fill for glass sitting directly over the brightest part of the
+   animation, where 0.55 alpha is not enough to hold small type. */
+.liquid-glass-strong {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+/* ---------------------------------------------------------------
+   Hero scrim.
+   Brightens rather than darkens: a white wash that lifts the pastel
+   animation just enough for navy type to sit on it. On wide screens it
+   runs left-to-right so the copy has a near-white bed while the figure
+   stays untouched on the right; on narrow screens the crop centres the
+   figure, so it runs top-to-bottom instead.
+   --------------------------------------------------------------- */
+.hero-scrim {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.93) 0%,
+    rgba(255, 255, 255, 0.88) 42%,
+    rgba(255, 255, 255, 0.66) 62%,
+    rgba(255, 255, 255, 0.82) 88%,
+    rgba(255, 255, 255, 0.96) 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .hero-scrim {
+    background:
+      linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.96) 0%,
+        rgba(255, 255, 255, 0.93) 42%,
+        rgba(255, 255, 255, 0.6) 62%,
+        rgba(255, 255, 255, 0.18) 80%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 22%),
+      linear-gradient(to top, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0) 26%);
+  }
 }
 
 /* ---------------------------------------------------------------
@@ -81,7 +124,7 @@ body {
    --------------------------------------------------------------- */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(22px);
   transition:
     opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
@@ -104,9 +147,7 @@ body {
   }
 }
 
-/* Native select dropdowns render options with the OS palette, so force
-   readable colors for the dark form. */
 select option {
-  background-color: #071c29;
-  color: #fff;
+  background-color: #fff;
+  color: var(--color-navy-800);
 }

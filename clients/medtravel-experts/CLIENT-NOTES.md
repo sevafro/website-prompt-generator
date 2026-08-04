@@ -41,39 +41,58 @@ Sets `<html lang>` so search engines index each language correctly.
 
 ## Decisions worth knowing
 
-**The hero video is a light pastel clip.** The supplied CloudFront video is a
-1920×1080 / 10s H.264 animation of a rotating anatomical brain in pale blue and
-pink — mean luma 169/255, and essentially constant across the whole loop. White
-text and the near-transparent "liquid glass" elements were both invisible on it
-untreated. The hero therefore applies a two-layer scrim (a flat ink tint plus a
-vertical gradient that weights the nav and stats areas). Measured worst-case
-contrast after the scrim, sampling the brightest 2% of background behind each
-text block:
+**The hero is a scroll-scrubbed frame sequence, not a video.** The supplied
+CloudFront clip is a 10s H.264 animation of a rotating anatomical brain. It ships
+as 72 WebP frames in `public/frames/` (~1.4 MB total) drawn to a canvas, with the
+frame index driven by scroll position through the tall track the hero is pinned
+inside. This is lighter than the 8.3 MB mp4, scrubs instantly instead of fighting
+`video.currentTime` seeking, and does not depend on the browser's H.264 support.
+`public/hero-poster.webp` paints immediately while the sequence decodes.
 
-| element | desktop | mobile |
-|---|---|---|
-| h1 (white) | 7.9:1 | 9.6:1 |
-| subtitle (white/70) | 5.1:1 | 5.3:1 |
-| badge (white/80) | 5.3:1+ | 5.5:1+ |
-| stat labels (white/60) | 6.0:1 | 6.2:1 |
+To regenerate the frames from a different clip:
 
-All above the WCAG AA threshold (4.5:1 normal, 3:1 large). **If the video is ever
-swapped, re-check these** — the scrim is tuned to this specific clip. A brighter
-or busier clip will need a heavier scrim.
+```bash
+ffmpeg -i source.mp4 -vf "fps=7.2,scale=1440:-2" -c:v libwebp -q:v 80 \
+  public/frames/f_%03d.webp
+```
 
-The clip is also 8.3 MB, which is a slow first paint on mobile. A poster frame
-(`public/hero-poster.jpg`, 33 KB) is extracted from it and shows immediately
-while the video loads. Worth compressing the video to ~2 MB before launch, and
-consider serving a shorter loop.
+Keep the count at 72, or update `FRAME_COUNT` in `src/HeroCanvas.tsx`. `fps` is
+`FRAME_COUNT / clip_duration`.
+
+**Light palette, and the animation is deliberately not darkened.** The clip is
+pale pastel (mean luma 169/255). Rather than darkening it to carry white text,
+the type is deep navy and the hero uses a *white* wash — brightening, not
+darkening — that gives the copy a near-white bed while leaving the figure clean
+on the right. Measured worst-case contrast, sampling the darkest 2% of background
+behind each block with the foreground stripped out:
+
+| element | colour | desktop | mobile |
+|---|---|---|---|
+| h1 line 1 | navy-900 | 11.4:1 | 13.5:1 |
+| h1 line 2 | brand-700 | 4.5:1 | 5.2:1 |
+| subtitle | navy-800 | 12.2:1 | 13.4:1 |
+| stat value | navy-900 | 10.1:1 | 14.2:1 |
+| stat label | navy-600 | 4.6:1 | 6.5:1 |
+| CTA | white on brand-700 | 6.6:1 | 6.6:1 |
+
+All above the WCAG AA threshold (4.5:1 normal text, 3:1 large text and UI).
+**If the clip is ever swapped, re-measure these** — the scrim is tuned to this
+one. The palette itself was also tuned against measurement: the first pass used
+`brand-500` (#1CADE4) for accents and a lighter navy for secondary copy, and both
+failed (2.6:1 and 4.2:1 on white respectively). Accents are `brand-600`/`700` and
+secondary copy is `navy-400` (#4e7391) or darker for that reason — **don't
+lighten them back without re-checking.**
+
+**Nav handoff.** The hero stays pinned for the whole track, so its own nav is
+visible the entire time. The hero foreground (nav + copy) fades out over the last
+stretch of the scrub and the compact sticky nav fades in as it goes — otherwise
+both are on screen at once. The compact nav exists at every breakpoint because on
+mobile it carries the only menu trigger once the hero foreground is gone.
 
 **Language toggle replaces the account button.** The design reference had a
 user-account circle in the nav; this site has no accounts, so that slot is a
 RU/EN toggle instead — which the brief requires and which needed a home in the
-header. Same liquid-glass treatment.
-
-**Nav is three links plus a Contact CTA.** Home / Services / Destinations in the
-glass pill, with Contact as the button, since booking a consultation is the only
-conversion that matters here.
+header.
 
 ## Contact form
 
@@ -95,7 +114,7 @@ email **and** WhatsApp/Telegram, per the brief. The payload is
 - [ ] The four faces in the hero badge are Pexels stock placeholders. Replace with real client photos, or drop the avatars.
 - [ ] Domain + SSL. Meta tags assume `medtravelexperts.com`.
 - [ ] Confirm the two hero stats: "15+ years in medical tourism" (from Olesya's bio) and "10 countries" (the destinations in the business plan). Both are defensible from the document, but they are public claims — worth a sign-off.
-- [ ] Decide whether to keep the brain video or shoot/licence something warmer. It matches the brand palette well, but it reads clinical rather than reassuring, and it is neuro-specific for a company that covers far more than neurology.
+- [ ] Decide whether to keep the brain animation or licence something warmer. It matches the brand palette well, but it is neuro-specific for a company that covers far more than neurology. Swapping it means regenerating the frames (above) and re-measuring hero contrast.
 
 ## Compliance notes
 

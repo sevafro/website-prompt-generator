@@ -9,7 +9,7 @@
 export type Lang = 'en' | 'ru';
 
 export interface Content {
-  nav: { home: string; services: string; destinations: string; contact: string };
+  nav: { home: string; services: string; process: string; destinations: string; contact: string };
   hero: {
     badge: string;
     headingLine1: string;
@@ -73,6 +73,7 @@ const en: Content = {
   nav: {
     home: 'Home',
     services: 'Services',
+    process: 'How It Works',
     destinations: 'Destinations',
     contact: 'Contact',
   },
@@ -313,6 +314,7 @@ const ru: Content = {
   nav: {
     home: 'Главная',
     services: 'Услуги',
+    process: 'Как это работает',
     destinations: 'Направления',
     contact: 'Контакты',
   },

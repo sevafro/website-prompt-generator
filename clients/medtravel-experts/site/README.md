@@ -15,13 +15,15 @@ npm run lint
 | file | what |
 |---|---|
 | `src/content.ts` | **all copy, both languages.** Edit here to change wording. |
-| `src/App.tsx` | nav, mobile menu, hero (video + liquid-glass overlay) |
+| `src/App.tsx` | nav, mobile menu, hero shell + scroll-progress wiring |
+| `src/HeroCanvas.tsx` | scroll-scrubbed WebP frame sequence on a canvas |
 | `src/Sections.tsx` | about, services, process, destinations, contact form, footer |
 | `src/Reveal.tsx` | scroll-into-view fade used across the lower sections |
 | `src/index.css` | brand tokens and the `.liquid-glass` surface |
 
-The hero video is hotlinked from CloudFront (`VIDEO_SRC` in `App.tsx`);
-`public/hero-poster.jpg` is a frame from it, shown while it loads.
+The hero animation is 72 WebP frames in `public/frames/`, scrubbed by scroll —
+no video element and nothing hotlinked. `public/hero-poster.webp` paints while
+they decode. See `../CLIENT-NOTES.md` for how to regenerate them.
 
 See `../CLIENT-NOTES.md` for deploy notes, the contact-form backend that still
 needs wiring, and the outstanding items from the client.
