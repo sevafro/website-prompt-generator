@@ -309,7 +309,7 @@ export default function App() {
               >
                 {t.hero.headingLine1}
                 <br />
-                <span className="text-brand-700">{t.hero.headingLine2}</span>
+                <span className="text-navy-900">{t.hero.headingLine2}</span>
               </h1>
 
               <p className="text-navy-800 mt-4 text-sm font-medium sm:mt-5 sm:text-base md:text-lg">
@@ -332,7 +332,7 @@ export default function App() {
                   <div className="text-navy-900 text-xl font-semibold sm:text-2xl md:text-3xl">
                     {stat.value}
                   </div>
-                  <div className="text-navy-600 text-xs font-medium sm:text-sm">{stat.label}</div>
+                  <div className="text-navy-800 text-xs font-semibold sm:text-sm">{stat.label}</div>
                 </div>
               ))}
             </div>

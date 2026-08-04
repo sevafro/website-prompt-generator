@@ -109,11 +109,11 @@ export function HeroCanvas({ progress }: { progress: number }) {
         src="/hero-poster.webp"
         alt=""
         aria-hidden="true"
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+        className={`hero-canvas absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
           firstFrameReady ? 'opacity-0' : 'opacity-100'
         }`}
       />
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-hidden="true" />
+      <canvas ref={canvasRef} className="hero-canvas absolute inset-0 h-full w-full" aria-hidden="true" />
     </>
   );
 }
